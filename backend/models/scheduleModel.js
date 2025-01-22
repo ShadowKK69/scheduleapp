@@ -1,46 +1,52 @@
 const mongoose = require("mongoose")
 
-const scheduleSchema = mongoose.Schema(
+const ShiftSchema = mongoose.Schema({
+  start: {
+    type: String,
+    required: true,
+  },
+  end: {
+    type: String,
+    required: true,
+  },
+})
+
+const DayScheduleSchema = mongoose.Schema({
+  day: {
+    type: String,
+    required: true,
+    enum: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+      "Ritinha",
+    ],
+  },
+  shifts: {
+    type: [ShiftSchema],
+    default: [],
+  },
+})
+
+const ScheduleSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: "User",
-      required: [true, "Please provide a user"],
+      required: true,
     },
-    week: [
-      {
-        day: {
-          type: String,
-          enum: [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday",
-          ],
-          required: [true, "Please specify the day of the week"],
-        },
-        shifts: [
-          {
-            start: {
-              type: String,
-              required: [true, "Please provide a start time"],
-            },
-            end: {
-              type: String,
-              required: [true, "Please provide an end time"],
-            },
-          },
-        ],
-      },
-    ],
+    week: {
+      type: [DayScheduleSchema],
+      required: true,
+    },
   },
   {
     timestamps: true,
   }
 )
 
-module.exports = mongoose.model("Schedule", scheduleSchema)
+module.exports = mongoose.model("Schedule", ScheduleSchema)
