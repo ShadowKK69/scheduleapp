@@ -15,32 +15,43 @@ function Header() {
   }
 
   return (
-    <header className='header'>
-      <div className='logo'>
-        <Link to='/'>Schedule Management</Link>
-      </div>
-      <ul>
-        {user ? (
-          <li>
-            <button className='btn' onClick={onLogout}>
-              <FaSignOutAlt /> Logout
-            </button>
-          </li>
-        ) : (
-          <>
-            <li>
-              <Link to='/login'>
-                <FaSignInAlt /> Login
-              </Link>
-            </li>
-            <li>
-              <Link to='/register'>
-                <FaUser /> Register
-              </Link>
-            </li>
-          </>
-        )}
-      </ul>
+    <header className='fixed top-0 left-0 w-full h-16 bg-stone-900 z-10'>
+      <nav className='h-full'>
+        <div className='navbar h-full'>
+          <div className='flex-1'>
+            <Link
+              to='/'
+              className='btn btn-ghost text-xs md:text-lg lg:text-xl'
+            >
+              Schedule Management
+            </Link>
+          </div>
+          <div className='flex-none'>
+            <ul className='menu menu-horizontal px-1'>
+              {user ? (
+                <li>
+                  <button className='btn' onClick={onLogout}>
+                    <FaSignOutAlt /> Logout
+                  </button>
+                </li>
+              ) : (
+                <>
+                  <li>
+                    <Link to='/login'>
+                      <FaSignInAlt /> Login
+                    </Link>
+                  </li>
+                  <li className='ml-2'>
+                    <Link to='/register'>
+                      <FaUser /> Register
+                    </Link>
+                  </li>
+                </>
+              )}
+            </ul>
+          </div>
+        </div>
+      </nav>
     </header>
   )
 }
