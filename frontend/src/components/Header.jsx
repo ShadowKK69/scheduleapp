@@ -15,21 +15,27 @@ function Header() {
   }
 
   return (
-    <header className='fixed top-0 left-0 w-full h-16 bg-stone-900 z-10'>
+    <header className='fixed top-0 left-0 w-full h-16 bg-base-300 z-10'>
       <nav className='h-full'>
         <div className='navbar h-full'>
           <div className='flex-1'>
-            <Link
-              to='/'
-              className='btn btn-ghost text-xs md:text-lg lg:text-xl'
-            >
+            <Link to='/' className='ml-6 text-xs md:text-lg lg:text-xl'>
               Schedule Management
             </Link>
           </div>
           <div className='flex-none'>
             <ul className='menu menu-horizontal px-1'>
-              {user ? (
+              {user && user.isAdmin === true ? (
                 <li>
+                  <Link to='/admin' className='btn btn-success'>
+                    <FaUser /> Admin Panel
+                  </Link>
+                </li>
+              ) : (
+                <></>
+              )}
+              {user ? (
+                <li className={user && user.isAdmin === true ? "ml-2" : ""}>
                   <button className='btn' onClick={onLogout}>
                     <FaSignOutAlt /> Logout
                   </button>
@@ -37,12 +43,12 @@ function Header() {
               ) : (
                 <>
                   <li>
-                    <Link to='/login'>
+                    <Link to='/login' className='btn btn-success'>
                       <FaSignInAlt /> Login
                     </Link>
                   </li>
                   <li className='ml-2'>
-                    <Link to='/register'>
+                    <Link to='/register' className='btn btn-neutral'>
                       <FaUser /> Register
                     </Link>
                   </li>

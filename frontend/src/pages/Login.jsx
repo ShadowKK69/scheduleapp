@@ -58,7 +58,7 @@ function Login() {
 
   return (
     <div className='flex flex-col items-center justify-center min-h-screen overflow-hidden'>
-      <div className='flex flex-col m-6 space-y-10 bg-slate-700 shadow-2xl md:flex-row md:space-y-0 md:m-0 rounded'>
+      <div className='flex flex-col m-6 space-y-10 bg-neutral shadow-2xl md:flex-row md:space-y-0 md:m-0 rounded'>
         <div className='p-6 md:p-20'>
           <div className='mb-5 flex flex-row items-center'>
             <FaSignInAlt size={30} />

@@ -64,12 +64,27 @@ const loginUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      isAdmin: user.isAdmin,
       token: generateToken(user._id),
     })
   } else {
     res.status(401)
     throw new Error("Invalid credentials")
   }
+})
+
+// @desc   Get all users
+// @route  /api/users/all
+// @access Private
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({})
+
+  const userArray = users.map((user) => ({
+    id: user._id,
+    name: user.name,
+  }))
+
+  res.status(200).json(userArray)
 })
 
 // @desc   Get current user
@@ -94,5 +109,6 @@ const generateToken = (id) => {
 module.exports = {
   registerUser,
   loginUser,
+  getUsers,
   getMe,
 }
