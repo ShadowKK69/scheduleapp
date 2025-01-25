@@ -1,9 +1,5 @@
 function Spinner() {
-  return (
-    <div className='loadingSpinnerContainer'>
-      <div className='loadingSpinner'></div>
-    </div>
-  )
+  return <span className='loading loading-spinner loading-lg'></span>
 }
 
 export default Spinner

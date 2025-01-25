@@ -1,4 +1,9 @@
-import { FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa"
+import {
+  FaSignInAlt,
+  FaSignOutAlt,
+  FaUser,
+  FaCalendarAlt,
+} from "react-icons/fa"
 import { Link, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { logout, reset } from "../features/auth/authSlice"
@@ -35,11 +40,20 @@ function Header() {
                 <></>
               )}
               {user ? (
-                <li className={user && user.isAdmin === true ? "ml-2" : ""}>
-                  <button className='btn' onClick={onLogout}>
-                    <FaSignOutAlt /> Logout
-                  </button>
-                </li>
+                <>
+                  {!user.isAdmin && (
+                    <li className={user ? "mx-2" : ""}>
+                      <Link to='/schedule' className='btn btn-neutral'>
+                        <FaCalendarAlt /> My Schedule
+                      </Link>
+                    </li>
+                  )}
+                  <li className={user && user.isAdmin === true ? "ml-2" : ""}>
+                    <button className='btn' onClick={onLogout}>
+                      <FaSignOutAlt /> Logout
+                    </button>
+                  </li>
+                </>
               ) : (
                 <>
                   <li>

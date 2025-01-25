@@ -3,14 +3,18 @@ import axios from "axios"
 const API_URL = "/api/schedule"
 
 // Create new schedule
-const createSchedule = async (scheduleData, token) => {
+const createSchedule = async (userId, scheduleData, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   }
 
-  const response = await axios.post(API_URL, scheduleData, config)
+  const response = await axios.post(
+    `${API_URL}/${userId}`,
+    scheduleData,
+    config
+  )
 
   return response.data
 }

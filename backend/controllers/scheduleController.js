@@ -21,15 +21,19 @@ const getSchedule = asyncHandler(async (req, res) => {
 // @route  POST /api/schedule/
 // @access Private
 const createSchedule = asyncHandler(async (req, res) => {
-  const { week } = req.body
+  console.log("Request Params:", req.params)
+  console.log("Request Body:", req.body)
 
-  if (!week) {
+  const { week } = req.body
+  const userId = req.params.id
+
+  if (!week || !userId) {
     res.status(400)
     throw new Error("Please add the correct parameters")
   }
 
   const schedule = await Schedule.create({
-    user: req.user.id,
+    user: userId,
     week,
   })
 

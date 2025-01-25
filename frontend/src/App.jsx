@@ -8,6 +8,7 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import CreateSchedule from "./pages/CreateSchedule"
 import NotFound from "./pages/NotFound"
+import Schedule from "./pages/Schedule"
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/schedule' element={<PrivateRoute />}>
+            <Route path='/schedule' element={<Schedule />} />
+          </Route>
           <Route path='/admin' element={<PrivateRoute />}>
             <Route path='/admin' element={<CreateSchedule />} />
           </Route>

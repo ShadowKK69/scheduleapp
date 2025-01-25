@@ -3,7 +3,6 @@ import scheduleService from "./scheduleService"
 
 const initialState = {
   schedules: [],
-  schedule: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -13,10 +12,10 @@ const initialState = {
 // Create new schedule
 export const createSchedule = createAsyncThunk(
   "schedule/create",
-  async (scheduleData, thunkAPI) => {
+  async ({ userId, scheduleData }, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token
-      return await scheduleService.createSchedule(scheduleData, token)
+      return await scheduleService.createSchedule(userId, scheduleData, token)
     } catch (error) {
       const message =
         (error.response &&
@@ -24,7 +23,6 @@ export const createSchedule = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString()
-
       return thunkAPI.rejectWithValue(message)
     }
   }
@@ -54,7 +52,11 @@ export const scheduleSlice = createSlice({
   name: "schedule",
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    reset: (state) => {
+      ;(state.isLoading = false),
+        (state.isError = false),
+        (state.isSuccess = false)
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(createSchedule.pending, (state) => {
